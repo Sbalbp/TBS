@@ -21,8 +21,8 @@ public class UnitCreatePanel extends Panel{
     private int width = 250, height = 320;
     private int slots = 6, slotHeight = (height-20)/slots;
     private int currentSlot, lastSlot, currentPage, lastPage;
-    private String[] units = {"footman","footman","footman","footman","footman","footman","footman"};
-    private int[] costs = {100,100,2000,100,100,100,100};
+    private String[] units = {"footman","archer","footman","footman","footman","footman","footman"};
+    private int[] costs = {100,140,2000,100,100,100,100};
     private JPanel[] unitPanel;
     private JLabel[] iconLabel, nameLabel, priceLabel;
     private JLabel page;
@@ -166,6 +166,8 @@ public class UnitCreatePanel extends Panel{
             switch(units[currentPage*slots+currentSlot]){
                 case "footman":
                     return new Footman(Game.game.getTurn());
+                case "archer":
+                    return new Archer(Game.game.getTurn());
                 default:
                     return null;
             }

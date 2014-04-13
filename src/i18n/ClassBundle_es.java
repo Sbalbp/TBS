@@ -16,6 +16,7 @@ public class ClassBundle_es extends ListResourceBundle{
     private Object[][] contents = {
             { "game.frameName"   , "Juego de Estrategia por Turnos" },
             { "unit.footman"   , "Infantería" },
+            { "unit.archer"   , "Arquero" },
             { "gui.ActionsPanel.move"   , "Mover" },
             { "gui.ActionsPanel.attack"   , "Atacar" },
             { "gui.ActionsPanel.wait"   , "Esperar" },

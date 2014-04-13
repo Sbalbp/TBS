@@ -326,8 +326,10 @@ public abstract class Unit implements Comparable<Unit>{
     public void update(){
         animCounter++;
         if(animCounter >= getAnimationSpeed()){
-            animDoneTimes++;
             currentFrame = (currentFrame+1)%maxFrames;
+            if(currentFrame == 0){
+                animDoneTimes++;
+            }
             animCounter = 0;
         }
     }
