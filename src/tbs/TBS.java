@@ -2,9 +2,9 @@
 package tbs;
 
 import game.*;
+import game.settings.Settings;
 import gui.MainFrame;
 import i18n.Localizer;
-import java.util.ArrayList;
 import map.*;
 import map.square.*;
 import unit.*;
@@ -20,6 +20,8 @@ public class TBS {
      */
     public static void main(String[] args) {
         
+        Settings.loadSettings();
+        
         Game.game.setTeams(new int[][]{{0},{1}});
         Game.game.setTurn(0);
         Game.game.setPlayerTurn(0);
@@ -34,10 +36,7 @@ public class TBS {
         Footman f = new Footman(0,m1.getSquare(0, 0));
         Footman f2 = new Footman(1,m1.getSquare(2, 2));
         
-        if(Settings.language == null){
-            Settings.language = "en";
-        }
-        Localizer.setLanguage(Settings.language);
+        Localizer.setLanguage(Settings.get("language"));
         MainFrame frame = new MainFrame();
         frame.setMapPanel(Game.game.getMap());
         frame.runMapPanel();

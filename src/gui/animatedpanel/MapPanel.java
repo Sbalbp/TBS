@@ -3,7 +3,7 @@ package gui.animatedpanel;
 
 import animationEvent.*;
 import game.Game;
-import game.Settings;
+import game.settings.Settings;
 import god.Spell;
 import gui.ActionsPanel;
 import gui.UnitCreatePanel;
@@ -82,19 +82,21 @@ public class MapPanel extends AnimatedPanel{
         citySprites = new HashMap();
         
         try{
-            cursor = ImageIO.read(new File(Settings.getImgRoute()+"/map/cursor.png"));
+            String imgRoute = Settings.get("assets.image.route");
+            
+            cursor = ImageIO.read(new File(imgRoute+"/map/cursor.png"));
             
             for(int i=-1; i<1; i++){
-                citySprites.put(i,ImageIO.read(new File(Settings.getImgRoute()+"/map/city"+i+".png")));
+                citySprites.put(i,ImageIO.read(new File(imgRoute+"/map/city"+i+".png")));
             }
             
-            blueTransparency = ImageIO.read(new File(Settings.getImgRoute()+"/map/squareBlueTransparent.png"));
-            redTransparency = ImageIO.read(new File(Settings.getImgRoute()+"/map/squareRedTransparent.png"));
+            blueTransparency = ImageIO.read(new File(imgRoute+"/map/squareBlueTransparent.png"));
+            redTransparency = ImageIO.read(new File(imgRoute+"/map/squareRedTransparent.png"));
             
             pathArrow = new BufferedImage[4][4];
             for(int i=0; i<4; i++){
                 for(int j=0; j<4; j++){
-                    pathArrow[i][j] = ImageIO.read(new File(Settings.getImgRoute()+"/map/pathArrow/pathArrow_"+i+"_"+j+".png"));
+                    pathArrow[i][j] = ImageIO.read(new File(imgRoute+"/map/pathArrow/pathArrow_"+i+"_"+j+".png"));
                 }
             }
         }catch(java.io.IOException e){

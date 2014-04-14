@@ -2,14 +2,19 @@
 package gui;
 
 import game.*;
+import game.settings.Settings;
 import god.Spell;
 import gui.animatedpanel.MapPanel;
 import i18n.Localizer;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import map.*;
 
 /**
@@ -95,6 +100,9 @@ public class MainFrame extends JFrame{
         boton8.setActionCommand("skill");
         boton8.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton8);
+    
+        setActionBindings();
+        setInputBindings();
         
         this.pack();
         this.setBounds(100,5,1000,700);
@@ -121,6 +129,82 @@ public class MainFrame extends JFrame{
     public void stopMapPanel(){
         mapPanel.setVisible(false);
         mapPanel.stop();
+    }
+    
+    private void setActionBindings(){
+        JPanel component = (JPanel)this.getContentPane();
+        
+        component.getActionMap().put("up",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.cursorMove(0);
+                }
+            }
+        );
+        
+        component.getActionMap().put("left",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.cursorMove(1);
+                }
+            }
+        );
+        
+        component.getActionMap().put("right",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.cursorMove(2);
+                }
+            }
+        );
+        
+        component.getActionMap().put("down",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.cursorMove(3);
+                }
+            }
+        );
+        
+        component.getActionMap().put("select",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.select();
+                }
+            }
+        );
+        
+        component.getActionMap().put("back",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    mapPanel.back();
+                }
+            }
+        );
+    }
+    
+    private void setInputBindings(){
+        JPanel component = (JPanel)this.getContentPane();
+        
+        component.getInputMap().clear();
+
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("up"),0,false), "up");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("left"),0,false), "left");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("right"),0,false), "right");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("down"),0,false), "down");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("select"),0,false), "select");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("back"),0,false), "back");
     }
     
     private class ButtonPressed implements ActionListener {

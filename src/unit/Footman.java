@@ -1,7 +1,7 @@
 
 package unit;
 
-import game.Settings;
+import game.settings.Settings;
 import java.awt.image.BufferedImage;
 import map.square.*;
 import sprite.Sprite;
@@ -18,14 +18,16 @@ public class Footman extends Unit{
     private static boolean initialized[] = {false,false,false,false,false,false,false,false};
     
     public static void initialize(int owner){
+        String imgRoute = Settings.get("assets.image.route");
+        
         sprite[owner] = new Sprite();
-        sprite[owner].addAnimationSeparate("idle",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/idle","png");
-        sprite[owner].addAnimationSeparate("right",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/right","png");
+        sprite[owner].addAnimationSeparate("idle",imgRoute+"/unit/"+unitString+"/"+owner+"/idle","png");
+        sprite[owner].addAnimationSeparate("right",imgRoute+"/unit/"+unitString+"/"+owner+"/right","png");
         sprite[owner].addAnimationFlip("left","right");
-        sprite[owner].addAnimationSeparate("up",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/up","png");
-        sprite[owner].addAnimationSeparate("down",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/down","png");
-        sprite[owner].addAnimationSeparate("idleUsed",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/idleUsed","png");
-        sprite[owner].addAnimationSeparate("death",Settings.getImgRoute()+"/unit/"+unitString+"/"+owner+"/death","png");
+        sprite[owner].addAnimationSeparate("up",imgRoute+"/unit/"+unitString+"/"+owner+"/up","png");
+        sprite[owner].addAnimationSeparate("down",imgRoute+"/unit/"+unitString+"/"+owner+"/down","png");
+        sprite[owner].addAnimationSeparate("idleUsed",imgRoute+"/unit/"+unitString+"/"+owner+"/idleUsed","png");
+        sprite[owner].addAnimationSeparate("death",imgRoute+"/unit/"+unitString+"/"+owner+"/death","png");
         
         initialized[owner] = true;
     }

@@ -3,7 +3,7 @@ package god;
 
 import animationEvent.*;
 import game.Game;
-import game.Settings;
+import game.settings.Settings;
 import gui.View;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class Spell {
         size = 3;
         
         sprite = new Sprite();
-        sprite.addAnimationSeparate("play",Settings.getImgRoute()+"/animation/anim0","png");
+        sprite.addAnimationSeparate("play",Settings.get("assets.image.route")+"/animation/anim0","png");
         currentFrame = 0;
         speed = 6;
         
