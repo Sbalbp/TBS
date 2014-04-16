@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import map.*;
+import unit.Unit;
 
 /**
  *
@@ -129,6 +130,10 @@ public class MainFrame extends JFrame{
     public void stopMapPanel(){
         mapPanel.setVisible(false);
         mapPanel.stop();
+    }
+     
+    public void setUnitInfo(Unit unit){
+        unitInfoPanel.setUnit(unit);
     }
     
     private void setActionBindings(){

@@ -17,6 +17,16 @@ public class ClassBundle_es extends ListResourceBundle{
             { "game.frameName"   , "Juego de Estrategia por Turnos" },
             { "unit.footman"   , "Infantería" },
             { "unit.archer"   , "Arquero" },
+            { "unit.damageType.slashing"   , "Cortante" },
+            { "unit.damageType.piercing"   , "Penetrante" },
+            { "unit.damageType.cleaving"   , "Despedazante" },
+            { "unit.damageType.demolishing"   , "Demoledor" },
+            { "unit.damageType.divine"   , "Divino" },
+            { "unit.armorType.light"   , "Ligera" },
+            { "unit.armorType.medium"   , "Media" },
+            { "unit.armorType.heavy"   , "Armadura" },
+            { "unit.armorType.armored"   , "Acorazada" },
+            { "unit.armorType.divine"   , "Divina" },
             { "gui.ActionsPanel.move"   , "Mover" },
             { "gui.ActionsPanel.attack"   , "Atacar" },
             { "gui.ActionsPanel.wait"   , "Esperar" },
@@ -24,7 +34,9 @@ public class ClassBundle_es extends ListResourceBundle{
             { "gui.ActionsPanel.capture"   , "Capturar" },
             { "gui.UnitInfoPanel.unit"   , "Unidad" },
             { "gui.UnitInfoPanel.player"   , "Jugador" },
-            { "gui.UnitInfoPanel.team"   , "Equipo" }
+            { "gui.UnitInfoPanel.team"   , "Equipo" },
+            { "gui.UnitInfoPanel.stats"   , "Características" },
+            { "gui.UnitInfoPanel.status"   , "Estado" }
     };
     
 }

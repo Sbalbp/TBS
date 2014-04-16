@@ -17,6 +17,16 @@ public class ClassBundle_en extends ListResourceBundle{
             { "game.frameName"   , "Turn Based Strategy Game" },
             { "unit.footman"   , "Footman" },
             { "unit.archer"   , "Archer" },
+            { "unit.damageType.slashing"   , "Slashing" },
+            { "unit.damageType.piercing"   , "Piercing" },
+            { "unit.damageType.cleaving"   , "Cleaving" },
+            { "unit.damageType.demolishing"   , "Demolishing" },
+            { "unit.damageType.divine"   , "Divine" },
+            { "unit.armorType.light"   , "Light" },
+            { "unit.armorType.medium"   , "Medium" },
+            { "unit.armorType.heavy"   , "Heavy" },
+            { "unit.armorType.armored"   , "Armored" },
+            { "unit.armorType.divine"   , "Divine" },
             { "gui.ActionsPanel.move"   , "Move" },
             { "gui.ActionsPanel.attack"   , "Attack" },
             { "gui.ActionsPanel.wait"   , "Wait" },
@@ -24,7 +34,9 @@ public class ClassBundle_en extends ListResourceBundle{
             { "gui.ActionsPanel.capture"   , "Capture" },
             { "gui.UnitInfoPanel.unit"   , "Unit" },
             { "gui.UnitInfoPanel.player"   , "Player" },
-            { "gui.UnitInfoPanel.team"   , "Team" }
+            { "gui.UnitInfoPanel.team"   , "Team" },
+            { "gui.UnitInfoPanel.stats"   , "Stats" },
+            { "gui.UnitInfoPanel.status"   , "Status" }
     };
     
 }

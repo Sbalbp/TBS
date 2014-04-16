@@ -19,7 +19,7 @@ public abstract class AnimatedPanel extends Panel implements Runnable{
     public void stop(){
         end = true;
     }
-    
+      
     private void paintScreen(){  
         Graphics g;
         try {

@@ -142,6 +142,8 @@ public class MapPanel extends AnimatedPanel{
         unsetTransparencySquares();
         squaresArrow = new int[map.getRows()][map.getColumns()];
         unsetArrowSquares();
+        
+        Game.game.getFrame().setUnitInfo(map.getSquare(view.getCursorRow(), view.getCursorColumn()).getUnit());
     }
     
     public ActionsPanel getActionsPanel(){
@@ -289,6 +291,7 @@ public class MapPanel extends AnimatedPanel{
                         Game.game.createUnit(newUnit);
                         unitCreatePanel.setVisible(false);
                         selectionPhase = SelectionPhase.NOSELECTION;
+                        Game.game.getFrame().setUnitInfo(map.getSquare(view.getCursorRow(), view.getCursorColumn()).getUnit());
                     }
                     break;
                 case SPELLTARGETSELECT:
@@ -345,6 +348,8 @@ public class MapPanel extends AnimatedPanel{
         if(center){
             view.centerAroundCursor(map.getRows(),map.getColumns());
         }
+        
+        Game.game.getFrame().setUnitInfo(map.getSquare(view.getCursorRow(), view.getCursorColumn()).getUnit());
     }
     
     public void cursorMove(int dir){
@@ -612,7 +617,7 @@ public class MapPanel extends AnimatedPanel{
             if(spell != null && spell.isVisible()){
                 g2D.drawImage(spell.getFrame(),(spell.getDrawColumn()-view.getDisplayColumn())*32+spell.getXOffset(),(spell.getDrawRow()-view.getDisplayRow())*32+spell.getYOffset(),spell.getFrame().getWidth(),spell.getFrame().getHeight(),null);
             }
-            
+    
         }catch(Exception e){}
     }
     
