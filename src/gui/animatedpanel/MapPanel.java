@@ -6,6 +6,7 @@ import game.Game;
 import game.settings.Settings;
 import god.Spell;
 import gui.ActionsPanel;
+import gui.KeyInteractive;
 import gui.UnitCreatePanel;
 import gui.View;
 import java.awt.Color;
@@ -24,7 +25,7 @@ import unit.*;
  *
  * @author Sergio Balbuena (Sbalbp) <sbalbp@gmail.com>
  */
-public class MapPanel extends AnimatedPanel{
+public class MapPanel extends AnimatedPanel implements KeyInteractive{
     
     public enum SelectionPhase {
         NOSELECTION, UNITSELECTED, ACTIONSELECT, CREATIONSELECT, ATTACKTARGETSELECT, SPELLTARGETSELECT
@@ -201,6 +202,22 @@ public class MapPanel extends AnimatedPanel{
         
     }
     
+    public void up(){
+        cursorMove(0);
+    }
+    
+    public void left(){
+        cursorMove(1);
+    }
+    
+    public void right(){
+        cursorMove(2);
+    }
+    
+    public void down(){
+        cursorMove(3);
+    }
+    
     public void select(){
         Unit newUnit;
         
@@ -352,7 +369,7 @@ public class MapPanel extends AnimatedPanel{
         Game.game.getFrame().setUnitInfo(map.getSquare(view.getCursorRow(), view.getCursorColumn()).getUnit());
     }
     
-    public void cursorMove(int dir){
+    private void cursorMove(int dir){
         
         if(true){
             if(!actionsPanel.isVisible()){

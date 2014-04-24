@@ -25,6 +25,7 @@ public class UnitInfoPanel extends JPanel{
     private int currentTab = 1, nextTab = 0, totalTabs=2;
     private Unit unit;
     private HashMap elements;
+    private UnitInfoPanelButtonPressed buttonListener = new UnitInfoPanelButtonPressed();
     
     public UnitInfoPanel(int x, int y){
         super();
@@ -104,22 +105,22 @@ public class UnitInfoPanel extends JPanel{
         button.setBounds(80,170,30,15);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
-        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left.gif"));
-        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_rollover.gif"));
+        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_1.gif"));
+        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_1_rollover.gif"));
         button.setRolloverEnabled(true);
         button.setActionCommand("left");
-        button.addActionListener(new UnitInfoPanelButtonPressed());
+        button.addActionListener(buttonListener);
         panel.add(button,new Integer(1),0);
         
         button = new JButton();
         button.setBounds(120,170,30,15);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
-        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right.gif"));
-        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_rollover.gif"));
+        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_1.gif"));
+        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_1_rollover.gif"));
         button.setRolloverEnabled(true);
         button.setActionCommand("left");
-        button.addActionListener(new UnitInfoPanelButtonPressed());
+        button.addActionListener(buttonListener);
         panel.add(button,new Integer(1),0);
         
         label = new JLabel();

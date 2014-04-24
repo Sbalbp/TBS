@@ -26,6 +26,7 @@ public class MainFrame extends JFrame{
     
     private MapPanel mapPanel;
     private UnitInfoPanel unitInfoPanel;
+    private KeyInteractive currentPanel;
     
     public MainFrame(){
         super();
@@ -104,7 +105,7 @@ public class MainFrame extends JFrame{
     
         setActionBindings();
         setInputBindings();
-        
+
         this.pack();
         this.setBounds(100,5,1000,700);
         this.setVisible(true);
@@ -123,8 +124,8 @@ public class MainFrame extends JFrame{
         Thread panelThread = new Thread(mapPanel);
         panelThread.setName("MapPanel Thread");
         panelThread.start();
+        currentPanel = mapPanel;
         mapPanel.setVisible(true);
-
     }
     
     public void stopMapPanel(){
@@ -142,7 +143,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("up",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.cursorMove(0);
+                    currentPanel.up();
                 }
             }
         );
@@ -150,7 +151,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("left",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.cursorMove(1);
+                    currentPanel.left();
                 }
             }
         );
@@ -158,7 +159,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("right",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.cursorMove(2);
+                    currentPanel.right();
                 }
             }
         );
@@ -166,7 +167,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("down",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.cursorMove(3);
+                    currentPanel.down();
                 }
             }
         );
@@ -174,7 +175,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("select",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.select();
+                    currentPanel.select();
                 }
             }
         );
@@ -182,7 +183,7 @@ public class MainFrame extends JFrame{
         component.getActionMap().put("back",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
-                    mapPanel.back();
+                    currentPanel.back();
                 }
             }
         );
@@ -215,22 +216,22 @@ public class MainFrame extends JFrame{
     private class ButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if ("up".equals(e.getActionCommand())) {
-                mapPanel.cursorMove(0);
+                currentPanel.up();
             }
             if ("left".equals(e.getActionCommand())) {
-                mapPanel.cursorMove(1);
+                currentPanel.left();
             }
             if ("right".equals(e.getActionCommand())) {
-                mapPanel.cursorMove(2);
+                currentPanel.right();
             }
             if ("down".equals(e.getActionCommand())) {
-                mapPanel.cursorMove(3);
+                currentPanel.down();
             }
             if ("enter".equals(e.getActionCommand())) {
-                mapPanel.select();
+                currentPanel.select();
             }
             if ("back".equals(e.getActionCommand())) {
-                mapPanel.back();
+                currentPanel.back();
             }
             if ("end".equals(e.getActionCommand())) {
                 Game.game.endTurn();
