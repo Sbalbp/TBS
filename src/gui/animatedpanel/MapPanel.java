@@ -225,7 +225,7 @@ public class MapPanel extends AnimatedPanel implements KeyInteractive{
             switch(selectionPhase){
                 case NOSELECTION:
                     unitSelected = map.getSquare(view.getCursorRow(), view.getCursorColumn()).getUnit();
-                    if(unitSelected != null && !unitSelected.isUsed() && unitSelected.getStat(Unit.Stat.OWNER) == Game.game.getTurn()){
+                    if(unitSelected != null && !unitSelected.isUsed() && (int)unitSelected.getStat(Unit.Stat.OWNER) == Game.game.getTurn()){
                         lastSquare = unitSelected.getSquare();
                         Game.game.setDestinationsAndPaths(unitSelected,view.getCursorRow(), view.getCursorColumn());
                         setTransparencySquares(Game.game.getDestinations(),1);
