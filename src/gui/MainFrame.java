@@ -6,6 +6,7 @@ import game.settings.Settings;
 import god.Spell;
 import gui.animatedpanel.MapPanel;
 import i18n.Localizer;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -106,8 +107,9 @@ public class MainFrame extends JFrame{
         setActionBindings();
         setInputBindings();
 
+        this.getContentPane().setPreferredSize(new Dimension(1000,700));
         this.pack();
-        this.setBounds(100,5,1000,700);
+        this.setLocation(100,5);
         this.setVisible(true);
         
     }
