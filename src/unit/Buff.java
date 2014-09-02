@@ -35,6 +35,9 @@ public class Buff {
     public Buff(){
         owner = null;
         
+        name = "blessedweapon";
+        description = "attackup";
+        
         stat = Unit.Stat.ATTACK;
         returns = true;
         setter = false;
@@ -67,6 +70,14 @@ public class Buff {
     
     public Unit.Stat getStat(){
         return stat;
+    }
+    
+    public int getTurns() {
+        return turns;
+    }
+
+    public int getTotalTurns() {
+        return totalTurns;
     }
     
     public boolean isSetter(){

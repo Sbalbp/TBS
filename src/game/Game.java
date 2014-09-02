@@ -218,6 +218,8 @@ public class Game {
                 units.get(i).updateBuffs();
             }
         }
+        
+        frame.setUnitInfo(map.getSquare(frame.getMapPanel().getView().getCursorRow(), frame.getMapPanel().getView().getCursorColumn()).getUnit());//.getUnitInfoPanel().update();
 
         if(currentTurn != playerTurn && ai.finished()){
             actionCounter = 0;

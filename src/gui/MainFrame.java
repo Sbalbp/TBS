@@ -122,6 +122,10 @@ public class MainFrame extends JFrame{
         mapPanel.setMap(map);
     }
     
+    public UnitInfoPanel getUnitInfoPanel(){
+        return unitInfoPanel;
+    }
+    
     public void runMapPanel(){
         Thread panelThread = new Thread(mapPanel);
         panelThread.setName("MapPanel Thread");

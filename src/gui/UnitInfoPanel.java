@@ -6,12 +6,14 @@ import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import unit.Buff;
 import unit.EquipmentType;
 import unit.Unit;
 
@@ -42,7 +44,8 @@ public class UnitInfoPanel extends JPanel{
     
     private void initElements(){
         String[] generalKeys = new String[]{"unit","player","team"},
-                 icons = new String[]{"","","range","attack","defense","movement","climb","siege","morale"};
+                 icons = new String[]{"","","range","attack","defense","movement","climb","siege","morale"},
+                 statusIcons = new String[]{"sick","sickimmunity","paralyzed","paralyzedimmunity","dmgimmunity"};
       
         JPanel imgPanel = new JPanel();
         imgPanel.setLayout(null);
@@ -93,10 +96,15 @@ public class UnitInfoPanel extends JPanel{
         elements.put("statsPanel", stats);
         panel.add(stats,new Integer(0),0);
         
+        BuffInfoScroller b = new BuffInfoScroller(10,50,width-60,90);
+        elements.put("buffsScroller", b);
+        
         JPanel status = new JPanel();
         status.setLayout(null);
         status.setVisible(false);
         status.setBounds(10,20,width-40,170);
+
+        status.add(b);
         status.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         elements.put("statusPanel", status);
         panel.add(status,new Integer(0),0);
@@ -166,14 +174,21 @@ public class UnitInfoPanel extends JPanel{
             stats.add(label);
         }
         
+        int statusIconsSeparation = (width-140)/6;
+        for(int i=0; i<5; i++){
+            label = new JLabel();
+            label.setBounds(statusIconsSeparation+i*(statusIconsSeparation+20),10,20,20);
+            label.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/"+statusIcons[i]+"off.gif"));
+            elements.put(statusIcons[i], label);
+            status.add(label);
+        }
+        
         this.add(panel);
         
         updateTabs();
     }
     
-    public void setUnit(Unit newUnit){
-        unit = newUnit;
-        
+    public void update(){
         if(unit != null){
             ((JLabel)elements.get("unit")).setText(Localizer.translate("unit."+unit.getName()));
             ((JLabel)elements.get("player")).setText(""+(int)unit.getStat(Unit.Stat.OWNER));
@@ -196,6 +211,16 @@ public class UnitInfoPanel extends JPanel{
             ((JLabel)elements.get("climb")).setText(""+(int)unit.getStat(Unit.Stat.CLIMB));
             ((JLabel)elements.get("siege")).setText(""+(int)unit.getStat(Unit.Stat.SIEGE));
             ((JLabel)elements.get("morale")).setText(""+(int)unit.getStat(Unit.Stat.MORALE));
+        
+            ((JLabel)elements.get("sick")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/sick"+((boolean)unit.getStat(Unit.Stat.SICK)?"on":"off")+".gif"));
+            ((JLabel)elements.get("sickimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/sickimmunity"+((boolean)unit.getStat(Unit.Stat.SICKNESSIMM)?"on":"off")+".gif"));
+            ((JLabel)elements.get("paralyzed")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/paralyzed"+((boolean)unit.getStat(Unit.Stat.PARALYZED)?"on":"off")+".gif"));
+            ((JLabel)elements.get("paralyzedimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/paralyzedimmunity"+((boolean)unit.getStat(Unit.Stat.PARALYSISIMM)?"on":"off")+".gif"));
+            ((JLabel)elements.get("dmgimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/dmgimmunity"+((boolean)unit.getStat(Unit.Stat.DAMAGEIMM)?"on":"off")+".gif"));
+
+            ((BuffInfoScroller)elements.get("buffsScroller")).setBuffs(unit.getBuffs());
+            ((BuffInfoScroller)elements.get("buffsScroller")).repaint();
+            ((BuffInfoScroller)elements.get("buffsScroller")).setVisible(true);
         }
         else{
             ((JLabel)elements.get("unit")).setText("");
@@ -214,7 +239,20 @@ public class UnitInfoPanel extends JPanel{
             ((JLabel)elements.get("climb")).setText("");
             ((JLabel)elements.get("siege")).setText("");
             ((JLabel)elements.get("morale")).setText("");
+            
+            ((JLabel)elements.get("sick")).setIcon(null);
+            ((JLabel)elements.get("sickimmunity")).setIcon(null);
+            ((JLabel)elements.get("paralyzed")).setIcon(null);
+            ((JLabel)elements.get("paralyzedimmunity")).setIcon(null);
+            ((JLabel)elements.get("dmgimmunity")).setIcon(null);
+            
+            ((BuffInfoScroller)elements.get("buffsScroller")).setVisible(false);
         }
+    }
+    
+    public void setUnit(Unit newUnit){
+        unit = newUnit;
+        update();
     }
     
     private void updateTabs(){

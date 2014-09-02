@@ -7,12 +7,12 @@ This software is being developed with the NetBeans IDE and its GIT plugin, so it
 
 To clone the project with the NetBeans GIT plugin, follow these steps:
 
-**1.** Open NetBeans and go to 'Team -> Git -> Clone'.
-**2.** Fill the 'Repository URL' form with **https://github.com/Sbalbp/TBS.git** and then your username and password for github. After that, press the 'Next' button.
-**3.** Select the branch to clone (for now, master) and press the 'Next' button.
-**4.** Fill the 'Parent Directory' form with the folder where you want to store the clone and select a name for it (make sure you don't have any project with that name). You can also select a name for your remote here. When you are done press the 'Finish' button.
-**5.** NetBeans will now ask you whether you want to open the project or not. You can open it later ('File -> Open Project') selecting the folder where you cloned it.
-**6.** Lastly, make sure to build the project once you have opened it.
+* **1.** Open NetBeans and go to 'Team -> Git -> Clone'.
+* **2.** Fill the 'Repository URL' form with **https://github.com/Sbalbp/TBS.git** and then your username and password for github. After that, press the 'Next' button.
+* **3.** Select the branch to clone (for now, master) and press the 'Next' button.
+* **4.** Fill the 'Parent Directory' form with the folder where you want to store the clone and select a name for it (make sure you don't have any project with that name). You can also select a name for your remote here. When you are done press the 'Finish' button.
+* **5.** NetBeans will now ask you whether you want to open the project or not. You can open it later ('File -> Open Project') selecting the folder where you cloned it.
+* **6.** Lastly, make sure to build the project once you have opened it.
 
 ##License
 

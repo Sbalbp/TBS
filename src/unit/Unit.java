@@ -241,6 +241,10 @@ public abstract class Unit implements Comparable<Unit>{
         }
     }
     
+    public ArrayList<Buff> getBuffs(){
+        return buffs;
+    }
+    
     public boolean addBuff(Buff newBuff){
         if(newBuff.isSetter()){
             for(int i=0; i<buffs.size(); i++){
