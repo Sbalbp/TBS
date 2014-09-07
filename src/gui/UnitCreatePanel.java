@@ -177,4 +177,10 @@ public class UnitCreatePanel extends Panel{
         }
     }
     
+    public void localize(){
+        for(int it = 0; it<lastSlot; it++){
+            nameLabel[it].setText(Localizer.translate("unit."+units[currentPage*slots+it]));
+        }
+    }
+    
 }

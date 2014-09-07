@@ -4,6 +4,7 @@ package gui;
 import game.*;
 import game.settings.Settings;
 import god.Spell;
+import gui.animatedpanel.MainMenuPanel;
 import gui.animatedpanel.MapPanel;
 import i18n.Localizer;
 import java.awt.Dimension;
@@ -24,10 +25,14 @@ import unit.Unit;
  * @author Sergio Balbuena (Sbalbp) <sbalbp@gmail.com>
  */
 public class MainFrame extends JFrame{
-    
+
+    private LanguageSelectPanel languagePanel;
+    private MainMenuPanel menuPanel;
     private MapPanel mapPanel;
     private UnitInfoPanel unitInfoPanel;
     private KeyInteractive currentPanel;
+    
+    private ButtonPressed buttonListener;
     
     public MainFrame(){
         super();
@@ -39,66 +44,78 @@ public class MainFrame extends JFrame{
         this.setResizable(false);
         this.setLayout(null);
         
+        buttonListener = new ButtonPressed();
+        
         mapPanel = new MapPanel();
-        mapPanel.setBounds(50,50,480,480);
+        mapPanel.setBounds(0,0,480,480);
         mapPanel.setVisible(false);
         mapPanel.initElements();
         this.getContentPane().add(mapPanel);
         
-        unitInfoPanel = new UnitInfoPanel(730,50);
+        unitInfoPanel = new UnitInfoPanel(480,0);
+        unitInfoPanel.setVisible(false);
         this.getContentPane().add(unitInfoPanel);
         
+        languagePanel = new LanguageSelectPanel(buttonListener);
+        languagePanel.setVisible(false);
+        this.getContentPane().add(languagePanel);
+        
+        menuPanel = new MainMenuPanel(buttonListener);
+        menuPanel.setBounds(0,0,730,700);
+        menuPanel.setVisible(false);
+        this.getContentPane().add(menuPanel);
+        
         JButton boton1 = new JButton();
-        boton1.setBounds(new Rectangle(580,50,100,50));
+        boton1.setBounds(new Rectangle(770,50,100,50));
         boton1.setText("Up");
         boton1.setActionCommand("up");
         boton1.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton1);
         
         JButton boton2 = new JButton();
-        boton2.setBounds(new Rectangle(540,110,100,50));
+        boton2.setBounds(new Rectangle(730,110,100,50));
         boton2.setText("Left");
         boton2.setActionCommand("left");
         boton2.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton2);
         
         JButton boton3 = new JButton();
-        boton3.setBounds(new Rectangle(600,110,100,50));
+        boton3.setBounds(new Rectangle(790,110,100,50));
         boton3.setText("Right");
         boton3.setActionCommand("right");
         boton3.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton3);
         
         JButton boton4 = new JButton();
-        boton4.setBounds(new Rectangle(580,170,100,50));
+        boton4.setBounds(new Rectangle(770,170,100,50));
         boton4.setText("Down");
         boton4.setActionCommand("down");
         boton4.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton4);
         
         JButton boton5 = new JButton();
-        boton5.setBounds(new Rectangle(580,300,100,50));
+        boton5.setBounds(new Rectangle(770,300,100,50));
         boton5.setText("Enter");
         boton5.setActionCommand("enter");
         boton5.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton5);
         
         JButton boton6 = new JButton();
-        boton6.setBounds(new Rectangle(580,400,100,50));
+        boton6.setBounds(new Rectangle(770,400,100,50));
         boton6.setText("Back");
         boton6.setActionCommand("back");
         boton6.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton6);
         
         JButton boton7 = new JButton();
-        boton7.setBounds(new Rectangle(580,500,100,50));
+        boton7.setBounds(new Rectangle(770,500,100,50));
         boton7.setText("End");
         boton7.setActionCommand("end");
         boton7.addActionListener(new ButtonPressed());
         this.getContentPane().add(boton7);
         
         JButton boton8 = new JButton();
-        boton8.setBounds(new Rectangle(580,600,100,50));
+        boton8.setBounds(new Rectangle(770,600,100,50));
         boton8.setText("Skill");
         boton8.setActionCommand("skill");
         boton8.addActionListener(new ButtonPressed());
@@ -107,6 +124,14 @@ public class MainFrame extends JFrame{
         setActionBindings();
         setInputBindings();
 
+        if(Settings.get("language_set").contains("yes")){
+            runMenuPanel();
+        }
+        else{
+            currentPanel = languagePanel;
+            ((JPanel)currentPanel).setVisible(true);
+        }
+           
         this.getContentPane().setPreferredSize(new Dimension(1000,700));
         this.pack();
         this.setLocation(100,5);
@@ -126,15 +151,30 @@ public class MainFrame extends JFrame{
         return unitInfoPanel;
     }
     
+    public void runMenuPanel(){
+        Thread panelThread = new Thread(menuPanel);
+        panelThread.setName("MapPanel Thread");
+        panelThread.start();
+        currentPanel = menuPanel;
+        menuPanel.setVisible(true);
+    }
+    
+    public void stopMenuPanel(){
+        menuPanel.setVisible(false);
+        menuPanel.stop();
+    }
+    
     public void runMapPanel(){
         Thread panelThread = new Thread(mapPanel);
         panelThread.setName("MapPanel Thread");
         panelThread.start();
         currentPanel = mapPanel;
         mapPanel.setVisible(true);
+        unitInfoPanel.setVisible(true);
     }
     
     public void stopMapPanel(){
+        unitInfoPanel.setVisible(false);
         mapPanel.setVisible(false);
         mapPanel.stop();
     }
@@ -143,9 +183,16 @@ public class MainFrame extends JFrame{
         unitInfoPanel.setUnit(unit);
     }
     
+    public void localize(){
+        this.setTitle(Localizer.translate("game.frameName"));
+        menuPanel.localize();
+        mapPanel.localize();
+        unitInfoPanel.localize();
+    }
+    
     private void setActionBindings(){
         JPanel component = (JPanel)this.getContentPane();
-        
+
         component.getActionMap().put("up",
             new AbstractAction() {
                 public void actionPerformed(ActionEvent e) {
@@ -244,6 +291,47 @@ public class MainFrame extends JFrame{
             }
             if ("skill".equals(e.getActionCommand())) {
                 mapPanel.setSpell(new Spell());
+            }
+            
+            if(e.getActionCommand().contains("languageSelectPanel.")){
+                switch(e.getActionCommand().replace("languageSelectPanel.","")){
+                    case "back":
+                        if(!Settings.get("language_set").equals("no")){
+                            runMenuPanel();
+                            currentPanel = menuPanel;
+                            languagePanel.setVisible(false);
+                        }
+                        break;
+                    case "left":
+                        ((LanguageSelectPanel)currentPanel).buttonPressed(e.getActionCommand());
+                        break;
+                    case "right":
+                        ((LanguageSelectPanel)currentPanel).buttonPressed(e.getActionCommand());
+                        break;
+                    default:
+                        if(Settings.get("language_set").equals("no")){
+                            Settings.set("language_set","yes");
+                        }
+                        Settings.set("language",((LanguageSelectPanel)currentPanel).getLanguage(Integer.parseInt(e.getActionCommand().replace("languageSelectPanel.",""))));
+                        Settings.saveSettings();
+                        Localizer.setLanguage(((LanguageSelectPanel)currentPanel).getLanguage(Integer.parseInt(e.getActionCommand().replace("languageSelectPanel.",""))));
+                        localize();
+                        runMenuPanel();
+                        currentPanel = menuPanel;
+                        languagePanel.setVisible(false);
+                }
+            }
+            
+            if(e.getActionCommand().contains("menuButtonsPanel.")){
+                switch(e.getActionCommand().replace("menuButtonsPanel.","")){
+                    case "language":
+                        stopMenuPanel();
+                        currentPanel = languagePanel;
+                        languagePanel.setVisible(true);
+                        break;
+                    default:
+                        ((MainMenuPanel)currentPanel).buttonPressed(e.getActionCommand());
+                }
             }
         }
     }

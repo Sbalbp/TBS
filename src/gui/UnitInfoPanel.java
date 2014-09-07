@@ -6,14 +6,12 @@ import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import unit.Buff;
 import unit.EquipmentType;
 import unit.Unit;
 
@@ -23,7 +21,7 @@ import unit.Unit;
  */
 public class UnitInfoPanel extends JPanel{
     
-    private int width = 250, height = 600;
+    private int width = 250, height = 480;
     private int currentTab = 1, nextTab = 0, totalTabs=2;
     private Unit unit;
     private HashMap elements;
@@ -66,6 +64,8 @@ public class UnitInfoPanel extends JPanel{
             label1.setText(Localizer.translate("gui.UnitInfoPanel."+generalKeys[i])+":");
             label1.setBounds(3,0,122,12);
             panel.add(label1);
+            
+            elements.put(generalKeys[i]+"Name",label1);
         
             JLabel label2 = new JLabel();
             label2.setFont(label2.getFont().deriveFont((float)10.0));
@@ -272,6 +272,26 @@ public class UnitInfoPanel extends JPanel{
     public void previousTab(){
         nextTab = currentTab-1 < 0 ? totalTabs-1 : currentTab-1;
         updateTabs();
+    }
+    
+    public void localize(){
+        String[] tabKeys = new String[]{"stats","status"},
+                generalKeys = new String[]{"unit","player","team"};
+        
+        if(unit != null){
+            ((JLabel)elements.get("unit")).setText(Localizer.translate("unit."+unit.getName()));
+            ((JLabel)elements.get("damageText")).setText(
+                    Localizer.translate("unit.damageType."+((EquipmentType.DamageType)unit.getStat(Unit.Stat.DMGTYPE)).toString().toLowerCase()));
+            ((JLabel)elements.get("armorText")).setText(
+                    Localizer.translate("unit.armorType."+((EquipmentType.ArmorType)unit.getStat(Unit.Stat.ARMTYPE)).toString().toLowerCase()));
+        }
+        ((JLabel)elements.get("tabTitle")).setText(Localizer.translate("gui.UnitInfoPanel."+tabKeys[currentTab]));
+        
+        for(int i=0; i<generalKeys.length; i++){
+            ((JLabel)elements.get(generalKeys[i]+"Name")).setText(Localizer.translate("gui.UnitInfoPanel."+generalKeys[i])+":");
+        }
+        
+        ((BuffInfoScroller)elements.get("buffsScroller")).localize();
     }
     
     private class UnitInfoPanelButtonPressed implements ActionListener {

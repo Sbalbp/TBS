@@ -71,4 +71,9 @@ public class BuffPanel extends JPanel{
         //descriptionText.setText(Localizer.translate("unit.buff.description."+buff.getDescription()));
     }
     
+    public void localize(){
+        nameText.setText(Localizer.translate("unit.buff.name."+buff.getName()));
+        remainingText.setText(Localizer.translate("gui.BuffPanel.remaining")+": "+(buff.getTotalTurns() > 0 ? buff.getTotalTurns()-buff.getTurns() : "-"));
+    }
+    
 }

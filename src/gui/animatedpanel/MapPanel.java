@@ -638,4 +638,9 @@ public class MapPanel extends AnimatedPanel implements KeyInteractive{
         }catch(Exception e){}
     }
     
+    public void localize(){
+        actionsPanel.localize();
+        unitCreatePanel.localize();
+    }
+    
 }

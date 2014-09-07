@@ -38,7 +38,16 @@ public class ClassBundle_es extends ListResourceBundle{
             { "gui.UnitInfoPanel.player"   , "Jugador" },
             { "gui.UnitInfoPanel.team"   , "Equipo" },
             { "gui.UnitInfoPanel.stats"   , "Características" },
-            { "gui.UnitInfoPanel.status"   , "Estado" }
+            { "gui.UnitInfoPanel.status"   , "Estado" },
+            { "gui.MenuButtonsPanel.mainmenu"   , "Menú" },
+            { "gui.MenuButtonsPanel.singleplayer"   , "Un jugador" },
+            { "gui.MenuButtonsPanel.multiplayer"   , "Multijugador" },
+            { "gui.MenuButtonsPanel.multijoin"   , "Unirse a partida" },
+            { "gui.MenuButtonsPanel.multihost"   , "Crear partida" },
+            { "gui.MenuButtonsPanel.settings"   , "Opciones" },
+            { "gui.MenuButtonsPanel.language"   , "Idioma" },
+            { "gui.MenuButtonsPanel.quit"   , "Salir" },
+            { "gui.MenuButtonsPanel.back"   , "Atrás" }
     };
     
 }

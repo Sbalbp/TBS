@@ -2,10 +2,9 @@
 package gui;
 
 import java.awt.Dimension;
-import javax.swing.JButton;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.util.ArrayList;
 import unit.Buff;
 
 /**
@@ -56,4 +55,11 @@ public class BuffInfoScroller extends JScrollPane{
             buffsContainer.add(bPanel);
         }
     }
+    
+    public void localize(){
+        if(buffsContainer.getComponentCount() > 0){
+            ((BuffPanel)buffsContainer.getComponent(0)).localize();
+        }
+    }
+    
 }

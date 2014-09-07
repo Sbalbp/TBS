@@ -17,16 +17,15 @@ import javax.swing.JPanel;
  */
 public class LanguageSelectPanel extends JPanel implements KeyInteractive{
     
-    private int width = 700, height = 700, rows = 3, columns = 3, buttonW = 128, buttonH = 128;
+    private int width = 730, height = 700, rows = 3, columns = 3, buttonW = 128, buttonH = 128;
     private int currentSlot = 0, nextSlot = 0, currentPage = 0, lastPage;
-    private boolean firstTime = true;
-    private String[] languages = {"en","es"};
+    private String[] languages = {"en","es","fr","ge","es","fr","ge","fr","ge","es","fr","ge","en"};
     private JButton[] buttons;
     private JButton backButton, leftButton, rightButton;
-    private LanguageSelectPanelButtonPressed buttonListener = new LanguageSelectPanelButtonPressed();
+    private ActionListener listener;
     private LanguageSelectPanelMouseEvent mouseListener = new LanguageSelectPanelMouseEvent();
     
-    public LanguageSelectPanel(){
+    public LanguageSelectPanel(ActionListener buttonListener){
         super();
         
         this.setLayout(null);
@@ -34,6 +33,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         
         this.setBackground(Color.BLACK);
         this.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        
+        listener = buttonListener;
         
         lastPage = (int)Math.ceil(((double)languages.length/(rows*columns))-1);
 
@@ -43,8 +44,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
             buttons[i].setBorder(javax.swing.BorderFactory.createLineBorder(Color.red));
             buttons[i].setBorderPainted(false);
             buttons[i].setContentAreaFilled(false);
-            buttons[i].setActionCommand(""+i);
-            buttons[i].addActionListener(buttonListener);
+            buttons[i].setActionCommand("languageSelectPanel."+i);
+            buttons[i].addActionListener(listener);
             buttons[i].setName(""+i);
             buttons[i].addMouseListener(mouseListener);
             this.add(buttons[i]);
@@ -56,8 +57,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         leftButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0.gif"));
         leftButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0_rollover.gif"));
         leftButton.setRolloverEnabled(true);
-        leftButton.setActionCommand("left");
-        leftButton.addActionListener(buttonListener);
+        leftButton.setActionCommand("languageSelectPanel.left");
+        leftButton.addActionListener(listener);
         this.add(leftButton);
         
         rightButton = new JButton();
@@ -66,8 +67,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         rightButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0.gif"));
         rightButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0_rollover.gif"));
         rightButton.setRolloverEnabled(true);
-        rightButton.setActionCommand("right");
-        rightButton.addActionListener(buttonListener);
+        rightButton.setActionCommand("languageSelectPanel.right");
+        rightButton.addActionListener(listener);
         this.add(rightButton);
 
         backButton = new JButton();
@@ -77,11 +78,16 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         backButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
         backButton.setRolloverEnabled(true);
         backButton.setBounds(width-120,height-80,100,60);
+        backButton.setActionCommand("languageSelectPanel.back");
+        backButton.addActionListener(listener);
         this.add(backButton);
         
-        updateButtons();
         updatePage();
         update();
+    }
+    
+    public String getLanguage(int index){
+        return languages[index+rows*columns*currentPage];
     }
 
     private int getNumberButtonsCurrentPage(){
@@ -91,9 +97,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
     private void updateButtons(){
         int xInc, yInc, xIni = 100, buttonsPerPage = rows*columns, yReturn;
         
-        if(firstTime){
+        if(Settings.get("language_set").equals("yes")){
             yReturn = 100;
-            firstTime = false;
             backButton.setVisible(true);
         }
         else{
@@ -231,29 +236,42 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
     }
     
     public void select(){
-        
+        if(currentSlot < rows*columns){
+            listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, buttons[currentSlot].getActionCommand()));
+        }
+        else{
+            listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, backButton.getActionCommand()));
+        }
     }
     
     public void back(){
-        
+        listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, backButton.getActionCommand()));
     }
     
-    private class LanguageSelectPanelButtonPressed implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            switch(e.getActionCommand()){
-                case "left":
-                    previousPage();
-                    break;
-                case "right":
-                    nextPage();
-                    if((rows*columns)*(currentPage)+currentSlot >= languages.length){
-                        nextSlot = 0;
-                        update();
-                    }
-                    break;
-                default:
-                    System.out.println(e.getActionCommand());
-            }
+    @Override
+    public void setVisible(boolean flag){
+        super.setVisible(flag);
+        if(flag){
+            updateButtons();
+        }
+    }
+    
+    public void buttonPressed(String event){
+        event = event.replace("languageSelectPanel.","");
+        
+        switch(event){
+            case "left":
+                previousPage();
+                break;
+            case "right":
+                nextPage();
+                if((rows*columns)*(currentPage)+currentSlot >= languages.length){
+                    nextSlot = 0;
+                    update();
+                }
+                break;
+            default:
+                System.out.println(getLanguage(Integer.parseInt(event)));//Integer.parseInt(event)+rows*columns*currentPage);
         }
     }
     

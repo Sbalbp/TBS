@@ -39,7 +39,6 @@ public class TBS {
         Localizer.setLanguage(Settings.get("language"));
         MainFrame frame = new MainFrame();
         frame.setMapPanel(Game.game.getMap());
-        frame.runMapPanel();
         
     }
     

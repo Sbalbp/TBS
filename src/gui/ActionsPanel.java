@@ -19,8 +19,9 @@ public class ActionsPanel extends Panel{
     private HashMap labels, labelOrder, orderLabel;
     private int currentSlot, nextSlot, numSlots;
     
+    private String[] labelNames = {"move", "attack", "wait", "ransack", "capture"};
+    
     public ActionsPanel(View newView){
-        String[] labelNames = {"move", "attack", "wait", "ransack", "capture"};
         
         setView(newView);
         
@@ -105,6 +106,12 @@ public class ActionsPanel extends Panel{
         ((JLabel)labels.get((String)orderLabel.get(currentSlot))).setBorder(null);
         currentSlot = nextSlot;
         ((JLabel)labels.get((String)orderLabel.get(currentSlot))).setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+    }
+    
+    public void localize(){
+        for(int i=0; i<labelNames.length; i++){
+            ((JLabel)labels.get(labelNames[i])).setText(Localizer.translate("gui.ActionsPanel."+labelNames[i]));
+        }
     }
     
     public void up(){

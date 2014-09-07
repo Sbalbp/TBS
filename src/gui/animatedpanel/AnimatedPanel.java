@@ -2,15 +2,15 @@
 package gui.animatedpanel;
 
 import java.awt.Graphics;
-import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Sergio Balbuena (Sbalbp) <sbalbp@gmail.com>
  */
-public abstract class AnimatedPanel extends Panel implements Runnable{
+public abstract class AnimatedPanel extends JPanel implements Runnable{
     
     protected Graphics g2D;
     protected BufferedImage copyOfImage = new BufferedImage(480, 480, BufferedImage.TYPE_INT_RGB);
