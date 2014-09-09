@@ -248,6 +248,10 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, backButton.getActionCommand()));
     }
     
+    public void switchTab(){
+        
+    }
+    
     @Override
     public void setVisible(boolean flag){
         super.setVisible(flag);

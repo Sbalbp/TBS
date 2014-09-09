@@ -62,6 +62,10 @@ public class MainMenuPanel extends AnimatedPanel implements KeyInteractive{
         buttonsPanel.back();
     }
     
+    public void switchTab(){
+        buttonsPanel.switchTab();
+    }
+    
     public void buttonPressed(String event){
         buttonsPanel.buttonPressed(event);
     }

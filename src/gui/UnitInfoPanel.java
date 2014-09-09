@@ -58,7 +58,7 @@ public class UnitInfoPanel extends JPanel{
             panel.setLayout(null);
             panel.setBounds(0,10+10+i*12+i*28,122,28);
             panel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        
+
             JLabel label1 = new JLabel();
             label1.setFont(label1.getFont().deriveFont((float)10.0));
             label1.setText(Localizer.translate("gui.UnitInfoPanel."+generalKeys[i])+":");

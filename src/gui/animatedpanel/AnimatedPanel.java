@@ -16,11 +16,15 @@ public abstract class AnimatedPanel extends JPanel implements Runnable{
     protected BufferedImage copyOfImage = new BufferedImage(480, 480, BufferedImage.TYPE_INT_RGB);
     protected boolean end;
     
+    public void start(){
+        end = false;
+    }
+    
     public void stop(){
         end = true;
     }
       
-    private void paintScreen(){  
+    private void paintScreen(){ 
         Graphics g;
         try {
             g = this.getGraphics();
@@ -53,8 +57,7 @@ public abstract class AnimatedPanel extends JPanel implements Runnable{
                     Thread.sleep(100);
                 }
                 catch(InterruptedException ex){}
-             }
-             
+             } 
          }
     }
     

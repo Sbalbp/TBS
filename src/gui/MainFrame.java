@@ -28,6 +28,7 @@ public class MainFrame extends JFrame{
 
     private LanguageSelectPanel languagePanel;
     private MainMenuPanel menuPanel;
+    private GameListPanel gameListPanel;
     private MapPanel mapPanel;
     private UnitInfoPanel unitInfoPanel;
     private KeyInteractive currentPanel;
@@ -59,6 +60,11 @@ public class MainFrame extends JFrame{
         languagePanel = new LanguageSelectPanel(buttonListener);
         languagePanel.setVisible(false);
         this.getContentPane().add(languagePanel);
+        
+        gameListPanel = new GameListPanel(buttonListener);
+        gameListPanel.setBounds(0,0,730,700);
+        gameListPanel.setVisible(false);
+        this.add(gameListPanel);
         
         menuPanel = new MainMenuPanel(buttonListener);
         menuPanel.setBounds(0,0,730,700);
@@ -123,7 +129,12 @@ public class MainFrame extends JFrame{
     
         setActionBindings();
         setInputBindings();
-
+      
+        this.getContentPane().setPreferredSize(new Dimension(1000,700));
+        this.pack();
+        this.setLocation(100,5);
+        this.setVisible(true);
+        
         if(Settings.get("language_set").contains("yes")){
             runMenuPanel();
         }
@@ -131,12 +142,6 @@ public class MainFrame extends JFrame{
             currentPanel = languagePanel;
             ((JPanel)currentPanel).setVisible(true);
         }
-           
-        this.getContentPane().setPreferredSize(new Dimension(1000,700));
-        this.pack();
-        this.setLocation(100,5);
-        this.setVisible(true);
-        
     }
     
     public MapPanel getMapPanel(){
@@ -153,9 +158,10 @@ public class MainFrame extends JFrame{
     
     public void runMenuPanel(){
         Thread panelThread = new Thread(menuPanel);
-        panelThread.setName("MapPanel Thread");
-        panelThread.start();
+        panelThread.setName("MenuPanel Thread");
         currentPanel = menuPanel;
+        menuPanel.start();
+        panelThread.start();
         menuPanel.setVisible(true);
     }
     
@@ -167,8 +173,9 @@ public class MainFrame extends JFrame{
     public void runMapPanel(){
         Thread panelThread = new Thread(mapPanel);
         panelThread.setName("MapPanel Thread");
-        panelThread.start();
         currentPanel = mapPanel;
+        mapPanel.start();
+        panelThread.start();
         mapPanel.setVisible(true);
         unitInfoPanel.setVisible(true);
     }
@@ -240,6 +247,14 @@ public class MainFrame extends JFrame{
                 }
             }
         );
+        
+        component.getActionMap().put("switch_tab",
+            new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    currentPanel.switchTab();
+                }
+            }
+        );
     }
     
     private void setInputBindings(){
@@ -264,6 +279,9 @@ public class MainFrame extends JFrame{
         
         component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(Settings.getKey("back"),0,false), "back");
+        
+        component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(Settings.getKey("switch_tab"),0,false), "switch_tab");
     }
     
     private class ButtonPressed implements ActionListener {
@@ -291,6 +309,23 @@ public class MainFrame extends JFrame{
             }
             if ("skill".equals(e.getActionCommand())) {
                 mapPanel.setSpell(new Spell());
+            }
+            
+            if(e.getActionCommand().contains("menuButtonsPanel.")){
+                switch(e.getActionCommand().replace("menuButtonsPanel.","")){
+                    case "language":
+                        stopMenuPanel();
+                        currentPanel = languagePanel;
+                        languagePanel.setVisible(true);
+                        break;
+                    case "multijoin":
+                        stopMenuPanel();
+                        currentPanel = gameListPanel;
+                        gameListPanel.setVisible(true);
+                        break;
+                    default:
+                        ((MainMenuPanel)currentPanel).buttonPressed(e.getActionCommand());
+                }
             }
             
             if(e.getActionCommand().contains("languageSelectPanel.")){
@@ -322,15 +357,20 @@ public class MainFrame extends JFrame{
                 }
             }
             
-            if(e.getActionCommand().contains("menuButtonsPanel.")){
-                switch(e.getActionCommand().replace("menuButtonsPanel.","")){
-                    case "language":
-                        stopMenuPanel();
-                        currentPanel = languagePanel;
-                        languagePanel.setVisible(true);
+            if(e.getActionCommand().contains("joinGamePanel.")){
+                switch(e.getActionCommand().replace("joinGamePanel.","")){
+                    case "back":
+                        if(!((GameListPanel)currentPanel).selectingServer()){
+                            runMenuPanel();
+                            currentPanel = menuPanel;
+                            gameListPanel.setVisible(false);
+                        }
+                        else{
+                            ((GameListPanel)currentPanel).buttonPressed(e.getActionCommand()); 
+                        }
                         break;
                     default:
-                        ((MainMenuPanel)currentPanel).buttonPressed(e.getActionCommand());
+                        ((GameListPanel)currentPanel).buttonPressed(e.getActionCommand()); 
                 }
             }
         }

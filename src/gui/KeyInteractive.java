@@ -13,5 +13,6 @@ public interface KeyInteractive {
     void down();
     void select();
     void back();
+    void switchTab();
 
 }

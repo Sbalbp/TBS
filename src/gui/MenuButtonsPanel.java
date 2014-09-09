@@ -194,6 +194,10 @@ public class MenuButtonsPanel extends JPanel implements KeyInteractive{
         listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "menuButtonsPanel.back"));
     }
     
+    public void switchTab(){
+        
+    }
+    
     public void localize(){
         int i;
         ArrayList<MainMenuPanel.Tree.Node> children;

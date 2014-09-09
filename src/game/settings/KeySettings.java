@@ -28,6 +28,8 @@ public class KeySettings {
                 return KeyEvent.VK_S;
             case "d":
                 return KeyEvent.VK_D;
+            case "t":
+                return KeyEvent.VK_T;
             case "enter":
                 return KeyEvent.VK_ENTER;
             case "backspace":

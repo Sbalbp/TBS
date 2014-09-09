@@ -358,6 +358,10 @@ public class MapPanel extends AnimatedPanel implements KeyInteractive{
 
     }
     
+    public void switchTab(){
+        
+    }
+    
     public void setCursor(int row, int col, boolean center){
         view.setCursorRow(row);
         view.setCursorColumn(col);

@@ -47,7 +47,10 @@ public class ClassBundle_es extends ListResourceBundle{
             { "gui.MenuButtonsPanel.settings"   , "Opciones" },
             { "gui.MenuButtonsPanel.language"   , "Idioma" },
             { "gui.MenuButtonsPanel.quit"   , "Salir" },
-            { "gui.MenuButtonsPanel.back"   , "Atrás" }
+            { "gui.MenuButtonsPanel.back"   , "Atrás" },
+            { "gui.HostGamePanel.server"   , "Servidor" },
+            { "gui.HostGamePanel.noserver"   , "No se ha seleccionado servidor" },
+            { "gui.HostGamePanel.input"   , "Introduzca aquí la dirección del servidor" }
     };
     
 }
