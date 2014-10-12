@@ -1,6 +1,8 @@
 
 package gui;
 
+import connection.ClientThread.CurrentState;
+import game.Game;
 import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.Color;
@@ -25,7 +27,7 @@ import javax.swing.SwingConstants;
 public class GameListPanel extends JLayeredPane implements KeyInteractive{
     private int width = 730, height = 700;
     private int currentTab = 0, nextTab = 0;
-    private boolean serverSelect = false;
+    private boolean serverSelect = false, connecting = false;;
     private String server = null;
     private JButton serverButton, backButton;
     private JLabel serverName;
@@ -163,6 +165,35 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
         update();
     }
     
+    public void serverSelected(){
+        connecting = true;
+        serverSelectPanel.showConnecting();
+        Game.game.runClient(serverSelectPanel.getServerName());
+        
+        Thread t = new Thread() {
+            public void run(){
+                while(Game.game.getClientState() == CurrentState.CONNECTING){
+                    try{
+                        Thread.sleep(2000);
+                    }
+                    catch(Exception e){}
+                }
+
+                if(Game.game.getClientState() == CurrentState.RECEIVING_GAMES){
+                    server = serverSelectPanel.getServerName();
+                    setServerName();
+                    hideSelectServerPanel();
+                }
+                else{
+                    serverSelectPanel.showConnectionFail();
+                }
+                
+                connecting = false;
+            }
+        };
+        t.start();
+    }
+    
     public void up(){
     }
     
@@ -191,15 +222,17 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
             }
         }
         else{
-            hideSelectServerPanel();
-            server = serverSelectPanel.getServerName();
-            setServerName();
+            if(!connecting){
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, serverSelectPanel.getButtonCommand()));
+            }
         }
     }
     
     public void back(){
         if(serverSelect){
-            hideSelectServerPanel();
+            if(!connecting){
+                hideSelectServerPanel();
+            }
         }
         else{
             listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, backButton.getActionCommand()));
@@ -219,10 +252,11 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
         switch(event){
             case "server":
                 serverSelectPanel.setServerName(server);
+                serverSelectPanel.showConnectForm();
                 showSelectServerPanel();
                 break;
             case "back":
-                if(serverSelect){
+                if(serverSelect && !connecting){
                     hideSelectServerPanel();
                 }
                 else{
@@ -230,10 +264,13 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
                 }
                 break;
             case "setServer":
-                if(serverSelect){
-                    hideSelectServerPanel();
-                    server = serverSelectPanel.getServerName();
-                    setServerName();
+                if(serverSelect && !connecting){
+                    serverSelected();
+                }
+                break;
+            case "failedOk":
+                if(serverSelect && !connecting){
+                    serverSelectPanel.showConnectForm();
                 }
                 break;
         }
@@ -242,6 +279,7 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
     public void localize(){
         setServerName();
         serverSelectPanel.setServerName(server);
+        serverSelectPanel.localize();
     }
     
     private class HostGamePanelMouseEvent implements MouseListener {

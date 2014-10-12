@@ -50,7 +50,9 @@ public class ClassBundle_en extends ListResourceBundle{
             { "gui.MenuButtonsPanel.back"   , "Back" },
             { "gui.HostGamePanel.server"   , "Server" },
             { "gui.HostGamePanel.noserver"   , "No server selected" },
-            { "gui.HostGamePanel.input"   , "Enter here the server address" }
+            { "gui.HostGamePanel.input"   , "Enter here the server address" },
+            { "gui.HostGamePanel.connecting"   , "Connecting ..." },
+            { "gui.HostGamePanel.failedconnection"   , "Couldn't reach the server" }
     };
     
 }

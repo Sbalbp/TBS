@@ -3,12 +3,14 @@ package gui;
 
 import game.settings.Settings;
 import i18n.Localizer;
+import java.awt.Color;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JLayeredPane;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -17,7 +19,8 @@ import java.awt.event.ActionListener;
 public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
     private int width = 400, height = 200;
     private JTextField serverTextField;
-    private JButton confirmButton;
+    private JButton confirmButton, backButton;
+    private JLabel connectionLabel;
     
     public ServerSelectPanel(ActionListener listener){
         super();
@@ -41,6 +44,29 @@ public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
         confirmButton.setActionCommand("joinGamePanel.setServer");
         confirmButton.addActionListener(listener);
         this.add(confirmButton, new Integer(0),-1);
+        
+        backButton = new JButton();
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
+        backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+        backButton.setBounds(width-100,height-60,100,60);
+        backButton.setActionCommand("joinGamePanel.back");
+        backButton.addActionListener(listener);
+        this.add(backButton, new Integer(0),-1);
+        
+        connectionLabel = new JLabel();
+        connectionLabel.setText(Localizer.translate("gui.HostGamePanel.connecting"));
+        connectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        connectionLabel.setFont(connectionLabel.getFont().deriveFont((float)20.0));
+        connectionLabel.setForeground(Color.WHITE);
+        connectionLabel.setVisible(false);
+        connectionLabel.setBounds(0,(int)(height/3),width,(int)(height/3));
+        this.add(connectionLabel, new Integer(0),-1);
+    }
+    
+    public String getButtonCommand(){
+        return confirmButton.getActionCommand();
     }
     
     public String getServerName(){
@@ -54,6 +80,37 @@ public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
         else{
             serverTextField.setText(Localizer.translate("gui.HostGamePanel.input"));
         }
+    }
+    
+    public void localize(){
+        connectionLabel.setText(Localizer.translate("gui.HostGamePanel.connecting"));
+    }
+    
+    public void showConnectForm(){
+        serverTextField.setVisible(true);
+        backButton.setVisible(true);
+        confirmButton.setVisible(true);
+        confirmButton.setActionCommand("joinGamePanel.setServer");
+        connectionLabel.setBounds(0,(int)(height/3),width,(int)(height/3));
+        connectionLabel.setVisible(false);
+    }
+    
+    public void showConnecting(){
+        serverTextField.setVisible(false);
+        backButton.setVisible(false);
+        confirmButton.setVisible(false);
+        connectionLabel.setVisible(true);
+        connectionLabel.setText(Localizer.translate("gui.HostGamePanel.connecting"));
+    }
+    
+    public void showConnectionFail(){
+        connectionLabel.setText(Localizer.translate("gui.HostGamePanel.failedconnection"));
+        confirmButton.setActionCommand("joinGamePanel.failedOk");
+        connectionLabel.setBounds(0,(int)(height/6),width,(int)(height/3));
+        backButton.setVisible(true);
+        confirmButton.setVisible(true);
+        connectionLabel.setVisible(true);
+        serverTextField.setVisible(false);
     }
     
     public void focusOnText(){

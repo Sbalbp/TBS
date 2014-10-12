@@ -3,6 +3,7 @@ package game;
 
 import ai.AI;
 import animationEvent.*;
+import connection.ClientThread;
 import god.Spell;
 import gui.MainFrame;
 import java.awt.Color;
@@ -30,6 +31,8 @@ public class Game {
     private HashMap teams;
     private HashMap colors;
     private ArrayList <ArrayList<Integer>> lastCursor;
+    
+    private ClientThread clientThread;
     
     private Map map;
     
@@ -175,6 +178,17 @@ public class Game {
     
     public void increaseProcessCounter(){
         processCounter++;
+    }
+    
+    public ClientThread.CurrentState getClientState(){
+        return clientThread.getCurrentState();
+    }
+    
+    public void runClient(String address){
+        clientThread = new ClientThread();
+        clientThread.setName("ClientThread");
+        clientThread.setServerAddress(address);
+        clientThread.start();
     }
     
     public void newGame(Map map){
