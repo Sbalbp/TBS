@@ -2,15 +2,14 @@
 package gui;
 
 import game.Game;
-import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.Color;
 import java.awt.Panel;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import unit.*;
+import utils.AssetsManager;
 
 /**
  *
@@ -94,7 +93,7 @@ public class UnitCreatePanel extends Panel{
         int it;
         
         for(it=0; it<=lastSlot; it++){
-            iconLabel[it].setIcon(new ImageIcon(Settings.get("assets.image.route")+"/unit/"+units[currentPage*slots+it]+"/0/idle_0.png"));
+            iconLabel[it].setIcon(AssetsManager.getImageIcon("/unit/"+units[currentPage*slots+it]+"/0/idle_0","png"));
             iconLabel[it].setVisible(true);
             
             nameLabel[it].setText(Localizer.translate("unit."+units[currentPage*slots+it]));

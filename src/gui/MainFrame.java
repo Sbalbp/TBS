@@ -143,6 +143,8 @@ public class MainFrame extends JFrame{
         
         if(Settings.get("language_set").contains("yes")){
             runMenuPanel();
+            //currentPanel = mapPanel;
+            //runMapPanel();
         }
         else{
             currentPanel = languagePanel;

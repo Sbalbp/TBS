@@ -1,7 +1,6 @@
 
 package gui;
 
-import game.settings.Settings;
 import gui.animatedpanel.MainMenuPanel;
 import i18n.Localizer;
 import java.awt.Color;
@@ -10,11 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import utils.AssetsManager;
 
 /**
  *
@@ -85,7 +84,7 @@ public class MenuButtonsPanel extends JPanel implements KeyInteractive{
                 button.setBounds((int)(width*(1-buttonRelativeWidth)/2),buttonSeparation+i*(buttonH+buttonSeparation),buttonW, buttonH);
                 button.setText(Localizer.translate("gui.MenuButtonsPanel."+(String)children.get(i).getData()));
                 button.setFocusable(false);
-                button.setBorder(javax.swing.BorderFactory.createMatteBorder((int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), new ImageIcon(Settings.get("assets.image.route")+"/tiles/tile1.gif")));
+                button.setBorder(javax.swing.BorderFactory.createMatteBorder((int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), AssetsManager.getImageIcon("/tiles/tile1", "gif")));
                 button.setBorderPainted(false);
                 button.setActionCommand("menuButtonsPanel."+((String)children.get(i).getData()).replace("gui.MenuButtonsPanel.",""));
                 button.setName(""+i);
@@ -100,7 +99,7 @@ public class MenuButtonsPanel extends JPanel implements KeyInteractive{
                 button.setBounds((int)(width*(1-buttonRelativeWidth)/2),buttonSeparation+i*(buttonH+buttonSeparation),buttonW, buttonH);
                 button.setText(Localizer.translate("gui.MenuButtonsPanel.back"));
                 button.setFocusable(false);
-                button.setBorder(javax.swing.BorderFactory.createMatteBorder((int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), new ImageIcon(Settings.get("assets.image.route")+"/tiles/tile1.gif")));
+                button.setBorder(javax.swing.BorderFactory.createMatteBorder((int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), (int)(buttonH*0.15), AssetsManager.getImageIcon("/tiles/tile1", "gif")));
                 button.setBorderPainted(false);
                 button.setActionCommand("menuButtonsPanel.back");
                 button.setName(""+i);
@@ -111,8 +110,8 @@ public class MenuButtonsPanel extends JPanel implements KeyInteractive{
             }
         }
         
-        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, new ImageIcon(Settings.get("assets.image.route")+"/tiles/tile0.gif")));
-
+        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, AssetsManager.getImageIcon("/tiles/tile0", "gif")));
+        
         currentSlot = nextSlot = 0;
         update();
     }

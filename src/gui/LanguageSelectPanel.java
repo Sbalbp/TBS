@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import utils.AssetsManager;
 
 /**
  *
@@ -54,8 +54,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         leftButton = new JButton();
         leftButton.setBorderPainted(false);
         leftButton.setContentAreaFilled(false);
-        leftButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0.gif"));
-        leftButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0_rollover.gif"));
+        leftButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_left_0", "gif"));
+        leftButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_left_0_rollover", "gif"));
         leftButton.setRolloverEnabled(true);
         leftButton.setActionCommand("languageSelectPanel.left");
         leftButton.addActionListener(listener);
@@ -64,8 +64,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         rightButton = new JButton();
         rightButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
-        rightButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0.gif"));
-        rightButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0_rollover.gif"));
+        rightButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_right_0", "gif"));
+        rightButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_right_0_rollover", "gif"));
         rightButton.setRolloverEnabled(true);
         rightButton.setActionCommand("languageSelectPanel.right");
         rightButton.addActionListener(listener);
@@ -74,8 +74,8 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         backButton = new JButton();
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
-        backButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
+        backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
+        backButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/back_0_rollover", "gif"));
         backButton.setRolloverEnabled(true);
         backButton.setBounds(width-120,height-80,100,60);
         backButton.setActionCommand("languageSelectPanel.back");
@@ -123,7 +123,7 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
         
         for(i=0, j=currentPage*rows*columns; i<buttonsCurrentPage; i++, j++){
             buttons[i].setVisible(true);
-            buttons[i].setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/languages/"+languages[j]+".png"));
+            buttons[i].setIcon(AssetsManager.getImageIcon("/icons/languages/"+languages[j], "png"));
         }
         for(;i<buttons.length; i++){
             buttons[i].setVisible(false);
@@ -146,14 +146,14 @@ public class LanguageSelectPanel extends JPanel implements KeyInteractive{
     
     private void update(){
         if(currentSlot == rows*columns){
-            backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+            backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
         }
         else{
             buttons[currentSlot].setBorderPainted(false);
         }
         currentSlot = nextSlot;
         if(currentSlot == rows*columns){
-            backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
+            backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0_rollover", "gif"));
         }
         else{
             buttons[currentSlot].setBorderPainted(true);

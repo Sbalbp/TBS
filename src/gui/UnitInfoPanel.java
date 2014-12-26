@@ -2,18 +2,17 @@
 package gui;
 
 import game.Game;
-import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import unit.EquipmentType;
 import unit.Unit;
+import utils.AssetsManager;
 
 /**
  *
@@ -35,7 +34,7 @@ public class UnitInfoPanel extends JPanel{
         this.setLayout(null);
         this.setBounds(x,y,width,height);
         
-        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, new ImageIcon(Settings.get("assets.image.route")+"/tiles/tile0.gif")));
+        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, AssetsManager.getImageIcon("/tiles/tile0", "gif")));
         
         initElements();
     }
@@ -113,8 +112,8 @@ public class UnitInfoPanel extends JPanel{
         button.setBounds(80,170,30,15);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
-        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_1.gif"));
-        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_1_rollover.gif"));
+        button.setIcon(AssetsManager.getImageIcon("/icons/arrow_left_1", "gif"));
+        button.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_left_1_rollover", "gif"));
         button.setRolloverEnabled(true);
         button.setActionCommand("left");
         button.addActionListener(buttonListener);
@@ -124,8 +123,8 @@ public class UnitInfoPanel extends JPanel{
         button.setBounds(120,170,30,15);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
-        button.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_1.gif"));
-        button.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_1_rollover.gif"));
+        button.setIcon(AssetsManager.getImageIcon("/icons/arrow_right_1", "gif"));
+        button.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_right_1_rollover", "gif"));
         button.setRolloverEnabled(true);
         button.setActionCommand("left");
         button.addActionListener(buttonListener);
@@ -162,7 +161,7 @@ public class UnitInfoPanel extends JPanel{
             
             label = new JLabel();
             label.setBounds(15+65*col,29+46*row,20,20);
-            label.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/"+icons[i]+".gif"));
+            label.setIcon(AssetsManager.getImageIcon("/icons/"+icons[i], "gif"));
             stats.add(label);
             
             label = new JLabel();
@@ -178,7 +177,7 @@ public class UnitInfoPanel extends JPanel{
         for(int i=0; i<5; i++){
             label = new JLabel();
             label.setBounds(statusIconsSeparation+i*(statusIconsSeparation+20),10,20,20);
-            label.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/"+statusIcons[i]+"off.gif"));
+            label.setIcon(AssetsManager.getImageIcon("/icons/"+statusIcons[i]+"off", "gif"));
             elements.put(statusIcons[i], label);
             status.add(label);
         }
@@ -194,12 +193,12 @@ public class UnitInfoPanel extends JPanel{
             ((JLabel)elements.get("player")).setText(""+(int)unit.getStat(Unit.Stat.OWNER));
             ((JLabel)elements.get("team")).setText(""+Game.game.getTeam((int)unit.getStat(Unit.Stat.OWNER)));
             
-            ((JLabel)elements.get("damageIcon")).setIcon(new ImageIcon(
-                    Settings.get("assets.image.route")+"/icons/damage_"+((EquipmentType.DamageType)unit.getStat(Unit.Stat.DMGTYPE)).toString()+".gif"));
+            ((JLabel)elements.get("damageIcon")).setIcon(//new ImageIcon(
+                    AssetsManager.getImageIcon("/icons/damage_"+((EquipmentType.DamageType)unit.getStat(Unit.Stat.DMGTYPE)).toString(), "gif"));
             ((JLabel)elements.get("damageText")).setText(
                     Localizer.translate("unit.damageType."+((EquipmentType.DamageType)unit.getStat(Unit.Stat.DMGTYPE)).toString().toLowerCase()));
-            ((JLabel)elements.get("armorIcon")).setIcon(new ImageIcon(
-                    Settings.get("assets.image.route")+"/icons/armor_"+((EquipmentType.ArmorType)unit.getStat(Unit.Stat.ARMTYPE)).toString()+".gif"));
+            ((JLabel)elements.get("armorIcon")).setIcon(//new ImageIcon(
+                    AssetsManager.getImageIcon("/icons/armor_"+((EquipmentType.ArmorType)unit.getStat(Unit.Stat.ARMTYPE)).toString(), "gif"));
             ((JLabel)elements.get("armorText")).setText(
                     Localizer.translate("unit.armorType."+((EquipmentType.ArmorType)unit.getStat(Unit.Stat.ARMTYPE)).toString().toLowerCase()));
             
@@ -212,11 +211,11 @@ public class UnitInfoPanel extends JPanel{
             ((JLabel)elements.get("siege")).setText(""+(int)unit.getStat(Unit.Stat.SIEGE));
             ((JLabel)elements.get("morale")).setText(""+(int)unit.getStat(Unit.Stat.MORALE));
         
-            ((JLabel)elements.get("sick")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/sick"+((boolean)unit.getStat(Unit.Stat.SICK)?"on":"off")+".gif"));
-            ((JLabel)elements.get("sickimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/sickimmunity"+((boolean)unit.getStat(Unit.Stat.SICKNESSIMM)?"on":"off")+".gif"));
-            ((JLabel)elements.get("paralyzed")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/paralyzed"+((boolean)unit.getStat(Unit.Stat.PARALYZED)?"on":"off")+".gif"));
-            ((JLabel)elements.get("paralyzedimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/paralyzedimmunity"+((boolean)unit.getStat(Unit.Stat.PARALYSISIMM)?"on":"off")+".gif"));
-            ((JLabel)elements.get("dmgimmunity")).setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/dmgimmunity"+((boolean)unit.getStat(Unit.Stat.DAMAGEIMM)?"on":"off")+".gif"));
+            ((JLabel)elements.get("sick")).setIcon(AssetsManager.getImageIcon("/icons/sick"+((boolean)unit.getStat(Unit.Stat.SICK)?"on":"off"), "gif"));
+            ((JLabel)elements.get("sickimmunity")).setIcon(AssetsManager.getImageIcon("/icons/sickimmunity"+((boolean)unit.getStat(Unit.Stat.SICKNESSIMM)?"on":"off"), "gif"));
+            ((JLabel)elements.get("paralyzed")).setIcon(AssetsManager.getImageIcon("/icons/paralyzed"+((boolean)unit.getStat(Unit.Stat.PARALYZED)?"on":"off"), "gif"));
+            ((JLabel)elements.get("paralyzedimmunity")).setIcon(AssetsManager.getImageIcon("/icons/paralyzedimmunity"+((boolean)unit.getStat(Unit.Stat.PARALYSISIMM)?"on":"off"), "gif"));
+            ((JLabel)elements.get("dmgimmunity")).setIcon(AssetsManager.getImageIcon("/icons/dmgimmunity"+((boolean)unit.getStat(Unit.Stat.DAMAGEIMM)?"on":"off"), "gif"));
 
             ((BuffInfoScroller)elements.get("buffsScroller")).setBuffs(unit.getBuffs());
             ((BuffInfoScroller)elements.get("buffsScroller")).repaint();

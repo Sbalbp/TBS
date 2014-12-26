@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
+import utils.AssetsManager;
 
 /**
  *
@@ -23,11 +24,10 @@ public class Sprite {
     public void addAnimationSeparate(String name, String path, String format){
         int index = 0;
         ArrayList <BufferedImage> images = new ArrayList <BufferedImage>();
+        BufferedImage image;
         
-        while(new File(path+"_"+index+"."+format).isFile()){
-            try{
-                images.add(ImageIO.read(new File(path+"_"+index+"."+format)));
-            }catch(java.io.IOException e){}
+        while((image = AssetsManager.getBufferedImage(path+"_"+index, format)) != null){
+            images.add(image);
             index++;
         }
         

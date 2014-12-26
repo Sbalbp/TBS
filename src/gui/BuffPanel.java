@@ -1,12 +1,11 @@
 
 package gui;
 
-import game.settings.Settings;
 import i18n.Localizer;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import unit.Buff;
+import utils.AssetsManager;
 
 /**
  *
@@ -67,7 +66,7 @@ public class BuffPanel extends JPanel{
     public void update(){
         nameText.setText(Localizer.translate("unit.buff.name."+buff.getName()));
         remainingText.setText(Localizer.translate("gui.BuffPanel.remaining")+": "+(buff.getTotalTurns() > 0 ? buff.getTotalTurns()-buff.getTurns() : "-"));
-        icon.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/"+buff.getDescription()+".gif"));
+        icon.setIcon(AssetsManager.getImageIcon("/icons/"+buff.getDescription(), "gif"));
         //descriptionText.setText(Localizer.translate("unit.buff.description."+buff.getDescription()));
     }
     

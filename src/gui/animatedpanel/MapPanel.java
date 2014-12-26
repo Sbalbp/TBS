@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import map.*;
 import map.square.*;
 import unit.*;
+import utils.AssetsManager;
 
 /**
  *
@@ -82,27 +83,32 @@ public class MapPanel extends AnimatedPanel implements KeyInteractive{
         
         citySprites = new HashMap();
         
-        try{
-            String imgRoute = Settings.get("assets.image.route");
+        //try{
+            //String imgRoute = Settings.get("assets.image.route");
             
-            cursor = ImageIO.read(new File(imgRoute+"/map/cursor.png"));
+            cursor = AssetsManager.getBufferedImage("/map/cursor", "png");
+            //cursor = ImageIO.read(new File(imgRoute+"/map/cursor.png"));
             
             for(int i=-1; i<1; i++){
-                citySprites.put(i,ImageIO.read(new File(imgRoute+"/map/city"+i+".png")));
+                //citySprites.put(i,ImageIO.read(new File(imgRoute+"/map/city"+i+".png")));
+                citySprites.put(i,AssetsManager.getBufferedImage("/map/city"+i, "png"));
             }
             
-            blueTransparency = ImageIO.read(new File(imgRoute+"/map/squareBlueTransparent.png"));
-            redTransparency = ImageIO.read(new File(imgRoute+"/map/squareRedTransparent.png"));
+            //blueTransparency = ImageIO.read(new File(imgRoute+"/map/squareBlueTransparent.png"));
+            //redTransparency = ImageIO.read(new File(imgRoute+"/map/squareRedTransparent.png"));
+            blueTransparency = AssetsManager.getBufferedImage("/map/squareBlueTransparent", "png");
+            redTransparency = AssetsManager.getBufferedImage("/map/squareRedTransparent", "png");
             
             pathArrow = new BufferedImage[4][4];
             for(int i=0; i<4; i++){
                 for(int j=0; j<4; j++){
-                    pathArrow[i][j] = ImageIO.read(new File(imgRoute+"/map/pathArrow/pathArrow_"+i+"_"+j+".png"));
+                    //pathArrow[i][j] = ImageIO.read(new File(imgRoute+"/map/pathArrow/pathArrow_"+i+"_"+j+".png"));
+                    pathArrow[i][j] = AssetsManager.getBufferedImage("/map/pathArrow/pathArrow_"+i+"_"+j, "png");
                 }
             }
-        }catch(java.io.IOException e){
+        /*}catch(java.io.IOException e){
             System.out.println("Exception: "+e);
-        }
+        }*/
     }
     
     public MapPanel(Map newMap){

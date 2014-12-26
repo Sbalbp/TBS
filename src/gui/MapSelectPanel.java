@@ -1,7 +1,6 @@
 
 package gui;
 
-import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -18,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import map.Map;
 import map.MapUtils;
+import utils.AssetsManager;
 
 /**
  *
@@ -82,8 +81,8 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
         upButton = new JButton();
         upButton.setBorderPainted(false);
         upButton.setContentAreaFilled(false);
-        upButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_up_0.gif"));
-        upButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_up_0_rollover.gif"));
+        upButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_up_0", "gif"));
+        upButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_up_0_rollover", "gif"));
         upButton.setBounds(495,260,80,80);
         upButton.setActionCommand("mapSelectPanel.up");
         upButton.addActionListener(listener);
@@ -92,8 +91,8 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
         downButton = new JButton();
         downButton.setBorderPainted(false);
         downButton.setContentAreaFilled(false);
-        downButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_down_0.gif"));
-        downButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_down_0_rollover.gif"));
+        downButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_down_0", "gif"));
+        downButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_down_0_rollover", "gif"));
         downButton.setBounds(495,360,80,80);
         downButton.setActionCommand("mapSelectPanel.down");
         downButton.addActionListener(listener);
@@ -102,8 +101,8 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
         leftButton = new JButton();
         leftButton.setBorderPainted(false);
         leftButton.setContentAreaFilled(false);
-        leftButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0.gif"));
-        leftButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_left_0_rollover.gif"));
+        leftButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_left_0", "gif"));
+        leftButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_left_0_rollover", "gif"));
         leftButton.setBounds(180,40,80,80);
         leftButton.setActionCommand("mapSelectPanel.left");
         leftButton.addActionListener(listener);
@@ -112,8 +111,8 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
         rightButton = new JButton();
         rightButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
-        rightButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0.gif"));
-        rightButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/arrow_right_0_rollover.gif"));
+        rightButton.setIcon(AssetsManager.getImageIcon("/icons/arrow_right_0", "gif"));
+        rightButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/arrow_right_0_rollover", "gif"));
         rightButton.setBounds(470,40,80,80);
         rightButton.setActionCommand("mapSelectPanel.right");
         rightButton.addActionListener(listener);
@@ -123,7 +122,7 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
         backButton.setName("1");
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+        backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
         backButton.setBounds(width-120,height-80,100,60);
         backButton.setActionCommand("mapSelectPanel.back");
         backButton.addActionListener(listener);
@@ -207,7 +206,7 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
                 namePanel.setBorder(null);
                 break;
             case 1:
-                backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+                backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
                 break;
         }
         currentElement = nextElement;
@@ -216,7 +215,7 @@ public class MapSelectPanel extends JLayeredPane implements KeyInteractive{
                 namePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
                 break;
             case 1:
-                backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
+                backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0_rollover", "gif"));
                 break;
         }
     }

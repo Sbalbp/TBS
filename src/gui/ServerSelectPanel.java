@@ -1,16 +1,15 @@
 
 package gui;
 
-import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import utils.AssetsManager;
 
 /**
  *
@@ -27,7 +26,7 @@ public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
         
         this.setLayout(null);
         this.setBounds(0,0,width,height);
-        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, new ImageIcon(Settings.get("assets.image.route")+"/tiles/tile1.gif")));
+        this.setBorder(javax.swing.BorderFactory.createMatteBorder(height, 0, 0, 0, AssetsManager.getImageIcon("/tiles/tile1", "gif")));
         
         serverTextField = new JTextField();
         serverTextField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -38,8 +37,8 @@ public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
         confirmButton = new JButton();
         confirmButton.setBorderPainted(false);
         confirmButton.setContentAreaFilled(false);
-        confirmButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/ok_0_rollover.gif"));
-        confirmButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/ok_0.gif"));
+        confirmButton.setIcon(AssetsManager.getImageIcon("/icons/ok_0", "gif"));
+        confirmButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/ok_0_rollover", "gif"));
         confirmButton.setBounds((width-60)/2,height-80,60,60);
         confirmButton.setActionCommand("joinGamePanel.setServer");
         confirmButton.addActionListener(listener);
@@ -48,8 +47,8 @@ public class ServerSelectPanel extends JLayeredPane implements KeyInteractive{
         backButton = new JButton();
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setRolloverIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
-        backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+        backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
+        backButton.setRolloverIcon(AssetsManager.getImageIcon("/icons/back_0_rollover", "gif"));
         backButton.setBounds(width-100,height-60,100,60);
         backButton.setActionCommand("joinGamePanel.back");
         backButton.addActionListener(listener);

@@ -3,7 +3,6 @@ package gui;
 
 import connection.ClientThread.CurrentState;
 import game.Game;
-import game.settings.Settings;
 import i18n.Localizer;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,13 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import utils.AssetsManager;
 
 /**
  *
@@ -60,7 +59,7 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
         serverButton.setName("0");
         serverButton.setBorderPainted(false);
         serverButton.setContentAreaFilled(false);
-        serverButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/switch_0.gif"));
+        serverButton.setIcon(AssetsManager.getImageIcon("/icons/switch_0", "gif"));
         serverButton.setBounds((int)(width*0.3),22,60,60);
         serverButton.setActionCommand("joinGamePanel.server");
         serverButton.addMouseListener(mouseListener);
@@ -71,7 +70,7 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
         backButton.setName("2");
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+        backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
         backButton.setBounds(width-120,height-80,100,60);
         backButton.setActionCommand("joinGamePanel.back");
         backButton.addMouseListener(mouseListener);
@@ -112,25 +111,25 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
     private void update(){
         switch(currentTab){
             case 0:
-                serverButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/switch_0.gif"));
+                serverButton.setIcon(AssetsManager.getImageIcon("/icons/switch_0", "gif"));
                 break;
             case 1:
                 scroller.setBorder(null);
                 break;
             case 2:
-                backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0.gif"));
+                backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0", "gif"));
                 break;
         }
         currentTab = nextTab;
         switch(currentTab){
             case 0:
-                serverButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/switch_0_rollover.gif"));
+                serverButton.setIcon(AssetsManager.getImageIcon("/icons/switch_0_rollover", "gif"));
                 break;
             case 1:
                 scroller.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, Color.YELLOW));
                 break;
             case 2:
-                backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
+                backButton.setIcon(AssetsManager.getImageIcon("/icons/back_0_rollover", "gif"));
                 break;
         }
     }
