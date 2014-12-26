@@ -19,4 +19,8 @@ public class Settings {
     public static String getImgRoute(){
         return getAssetsRoute()+"/img";
     }
+    
+    public static String getMapsRoute(){
+        return getAssetsRoute()+"/maps";
+    }
 }
