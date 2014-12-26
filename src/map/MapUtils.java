@@ -2,9 +2,13 @@
 package map;
 
 import game.Game;
+import game.settings.Settings;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import unit.*;
+import utils.RegexpFilter;
 
 /**
  *
@@ -219,4 +223,39 @@ public final class MapUtils {
         return null;
         
     }
+    
+    public static ArrayList<Map> getMaps(int nPlayers, int maxMaps){
+        ArrayList<Map> maps = new ArrayList<Map>();
+        File file = new File(Settings.get("assets.maps.route"));
+        
+        FilenameFilter filter = new RegexpFilter((nPlayers > 0 ? nPlayers : "\\d+")+"-map\\d\\d\\d");
+        String[] fileList = file.list(filter);
+        
+        if(maxMaps >= 0){
+            fileList = Arrays.copyOfRange(fileList, 0,
+                    maxMaps >= fileList.length ? fileList.length+1 : maxMaps);
+        }
+        
+        for(int i=0; i<fileList.length; i++){
+            Map map = new Map();
+            map.read(fileList[i]);
+            maps.add(map);
+        }
+        
+        return maps;
+    }
+    
+    public static ArrayList<Map> getAllMapsByNPlayers(int nPlayers){
+        return getMaps(nPlayers,-1);
+    }
+    
+    public static ArrayList<Map> getAllMaps(int maxMaps){
+        return getMaps(0,maxMaps);
+    }
+    
+    public static ArrayList<Map> getAllMaps(){
+        return getMaps(-1,-1);
+    }
+    
+    
 }
