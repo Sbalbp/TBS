@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 public class GameListPanel extends JLayeredPane implements KeyInteractive{
     private int width = 730, height = 700;
     private int currentTab = 0, nextTab = 0;
-    private boolean serverSelect = false, connecting = false;;
+    private boolean serverSelect = false, connecting = false;
     private String server = null;
     private JButton serverButton, backButton;
     private JLabel serverName;
@@ -127,7 +127,7 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
                 serverButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/switch_0_rollover.gif"));
                 break;
             case 1:
-                scroller.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5,5, 5, Color.YELLOW));
+                scroller.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, Color.YELLOW));
                 break;
             case 2:
                 backButton.setIcon(new ImageIcon(Settings.get("assets.image.route")+"/icons/back_0_rollover.gif"));
@@ -215,6 +215,7 @@ public class GameListPanel extends JLayeredPane implements KeyInteractive{
                     listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, serverButton.getActionCommand()));
                     break;
                 case 1:
+                    // TO DO
                     break;
                 case 2:
                     listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, backButton.getActionCommand()));

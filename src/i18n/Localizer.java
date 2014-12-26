@@ -17,7 +17,12 @@ public class Localizer {
     }
     
     public static String translate(String key){
-        return (String)bundle.getObject(key);
+        if(bundle.containsKey(key)){
+            return (String)bundle.getObject(key);
+        }
+        else{
+            return key;
+        }
     }
     
 }

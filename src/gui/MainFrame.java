@@ -29,6 +29,7 @@ public class MainFrame extends JFrame{
     private LanguageSelectPanel languagePanel;
     private MainMenuPanel menuPanel;
     private GameListPanel gameListPanel;
+    private MapSelectPanel mapSelectPanel;
     private MapPanel mapPanel;
     private UnitInfoPanel unitInfoPanel;
     private KeyInteractive currentPanel;
@@ -65,6 +66,11 @@ public class MainFrame extends JFrame{
         gameListPanel.setBounds(0,0,730,700);
         gameListPanel.setVisible(false);
         this.add(gameListPanel);
+        
+        mapSelectPanel = new MapSelectPanel(buttonListener);
+        mapSelectPanel.setBounds(0,0,730,700);
+        mapSelectPanel.setVisible(false);
+        this.add(mapSelectPanel);
         
         menuPanel = new MainMenuPanel(buttonListener);
         menuPanel.setBounds(0,0,730,700);
@@ -192,8 +198,10 @@ public class MainFrame extends JFrame{
     
     public void localize(){
         this.setTitle(Localizer.translate("game.frameName"));
+        gameListPanel.localize();
         menuPanel.localize();
         mapPanel.localize();
+        mapSelectPanel.localize();
         unitInfoPanel.localize();
     }
     
@@ -313,6 +321,12 @@ public class MainFrame extends JFrame{
             
             if(e.getActionCommand().contains("menuButtonsPanel.")){
                 switch(e.getActionCommand().replace("menuButtonsPanel.","")){
+                    case "singleplayer":
+                        stopMenuPanel();
+                        mapSelectPanel.setOnlineSelection(false);
+                        currentPanel = mapSelectPanel;
+                        mapSelectPanel.setVisible(true);
+                        break;
                     case "language":
                         stopMenuPanel();
                         currentPanel = languagePanel;
@@ -325,6 +339,24 @@ public class MainFrame extends JFrame{
                         break;
                     default:
                         ((MainMenuPanel)currentPanel).buttonPressed(e.getActionCommand());
+                }
+            }
+            
+            if(e.getActionCommand().contains("mapSelectPanel.")){
+                switch(e.getActionCommand().replace("mapSelectPanel.","")){
+                    case "back":
+                        if(mapSelectPanel.isOnlineSelection()){
+                            // TO DO
+                        }
+                        else{
+                            runMenuPanel();
+                            currentPanel = menuPanel;
+                        }
+                        mapSelectPanel.setVisible(false);
+                        break;
+                    default:
+                        ((MapSelectPanel)currentPanel).buttonPressed(e.getActionCommand());
+                        break;
                 }
             }
             

@@ -48,6 +48,7 @@ public class ClassBundle_en extends ListResourceBundle{
             { "gui.MenuButtonsPanel.language"   , "Language" },
             { "gui.MenuButtonsPanel.quit"   , "Quit" },
             { "gui.MenuButtonsPanel.back"   , "Back" },
+            { "gui.MapSelectPanel.players"   , "players" },
             { "gui.HostGamePanel.server"   , "Server" },
             { "gui.HostGamePanel.noserver"   , "No server selected" },
             { "gui.HostGamePanel.input"   , "Enter here the server address" },
